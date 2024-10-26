@@ -1,0 +1,54 @@
+package com.pack;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class number {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+        int score = 0;
+        int rounds = 3;  // Number of rounds
+        int maxAttempts = 5;  // Max attempts per round
+        
+        System.out.println("Welcome to 'Guess the Number' game!");
+
+        // Loop through rounds
+        for (int round = 1; round <= rounds; round++) {
+            int numberToGuess = random.nextInt(100) + 1;  // Random number between 1 and 100
+            int attempts = 0;
+            boolean isGuessed = false;
+
+            System.out.println("\nRound " + round + ": Guess a number between 1 and 100.");
+
+            // Loop for attempts in a round
+            while (attempts < maxAttempts) {
+                System.out.print("Enter your guess: ");
+                int userGuess = scanner.nextInt();
+                attempts++;
+
+                if (userGuess == numberToGuess) {
+                    System.out.println("Congratulations! You've guessed the number.");
+                    score += (maxAttempts - attempts + 1) * 10;  // Points based on remaining attempts
+                    isGuessed = true;
+                    break;
+                } else if (userGuess < numberToGuess) {
+                    System.out.println("The number is higher.");
+                } else {
+                    System.out.println("The number is lower.");
+                }
+
+                System.out.println("Attempts left: " + (maxAttempts - attempts));
+            }
+
+            if (!isGuessed) {
+                System.out.println("You've used all your attempts. The number was: " + numberToGuess);
+            }
+            System.out.println("Your current score: " + score);
+        }
+
+        System.out.println("\nGame Over!");
+        System.out.println("Your final score is: " + score);
+    }
+}
